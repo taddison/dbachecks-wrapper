@@ -1,5 +1,5 @@
 {
-    "Environment": "Prod-Localhost"
+    "Environment": "PROD"
     ,"Checks": [
         "SuspectPage"
         ,"DAC"
