@@ -1,3 +1,4 @@
 {
     "ResultExportPath": "c:\\temp\\dbachecks"
+    ,"SQLChecksTestPath": "c:\\src\\sqlchecks\\tests"
 }
