@@ -1,7 +1,0 @@
-{
-    "Environment": "DEV"
-    ,"Checks": [
-        "SuspectPage"
-        ,"DAC"
-    ]
-}
