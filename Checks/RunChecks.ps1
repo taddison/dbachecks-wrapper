@@ -1,5 +1,6 @@
 #Requires -Modules dbachecks, SQLChecks
 
+# Global settings
 Get-Content -Path '.\global.config.json' -Raw | ConvertFrom-Json -OutVariable globalConfig | Out-Null
 
 $resultExportPath = $globalConfig.ResultExportPath
@@ -7,7 +8,7 @@ $sqlChecksTestPath = $globalConfig.SQLChecksTestPath
 
 foreach($instance in Get-ChildItem -Path './Environments' -Directory)
 {
-    # Global config settings
+    # Environment config settings
     $testConfigPath = $instance.FullName + "\tests.config.json"
     Get-Content -Path $testConfigPath -Raw | ConvertFrom-Json -OutVariable testConfig | Out-Null
 
@@ -28,6 +29,7 @@ foreach($instance in Get-ChildItem -Path './Environments' -Directory)
         }   
     }
 
+    # SQLChecks
     $sqlChecksFolder = $instance.FullName + "\\SQLChecks"
     if(Test-Path ($sqlChecksFolder))
     {
