@@ -14,9 +14,7 @@ The code to execute the checks and read config values is all contained in [RunAl
 - The script will execute all DBAChecks specified in the tests.config.json file for the environment
 - The script will also execute any SQLChecks tests found, only attempting to execute tests which are present in the configuration file
 
-## TODO
-- The SQLChecks tests are currently exported as ENVIRONMENT-SERVER, and need to be merged into a single results file
-- SQLChecks doesn't currently have any tags and so no tests ever run (without hacking the repo)
-- SQLChecks doesn't use Describe blocks in the way DBAChecks expects, and they need to be refactored to have the last word be the ServerInstance
+## Report update
+- The Power BI dashboard query has been updated to replace .sqlchecks in the filename of all imported files - this works around the limitation that SQLChecks tests don't have a native concept of environment
 
 ![Dashboard](/img/DashboardExample.png)

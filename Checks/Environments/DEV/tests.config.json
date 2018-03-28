@@ -2,8 +2,7 @@
     "Environment": "DEV"
     ,"DBAChecks": {
         "Checks": [
-            "SuspectPage"
-            ,"DAC"
+            "DAC"
         ]
     }
 }

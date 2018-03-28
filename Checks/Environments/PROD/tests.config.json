@@ -2,8 +2,7 @@
     "Environment": "PROD"
     ,"DBAChecks": {
         "Checks": [
-            "SuspectPage"
-            ,"DAC"
+            "DAC"
         ]
     }
 }

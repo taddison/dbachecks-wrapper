@@ -48,7 +48,7 @@ foreach($instance in Get-ChildItem -Path './Environments' -Directory)
             foreach($check in $sqlCheckConfig | Get-Member -Type NoteProperty | Where-Object { $_.Name -ne "ServerInstance"} | Select-Object -ExpandProperty Name)
             {
                 Write-Host "[SQLCHECKS] Running $check on $environment - $instance"
-                Invoke-Pester -Script @{Path=$sqlChecksTestPath;Parameters= @{configs=$sqlChecksConfig}} -Tag $check -PassThru | Update-DbcPowerBiDataSource -Environment $sqlCheckEnvironment -Path $resultExportPath
+                Invoke-Pester -Script @{Path=$sqlChecksTestPath;Parameters= @{configs=$sqlCheckConfig}} -Tag $check -PassThru | Update-DbcPowerBiDataSource -Environment $sqlCheckEnvironment -Path $resultExportPath
             } 
         }        
     }
