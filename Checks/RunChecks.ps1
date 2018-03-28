@@ -53,5 +53,3 @@ foreach($instance in Get-ChildItem -Path './Environments' -Directory)
         }        
     }
 }
-
-#Start-DbcPowerBi -Path ../Dashboard/
