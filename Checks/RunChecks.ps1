@@ -5,6 +5,7 @@ Get-Content -Path '.\global.config.json' -Raw | ConvertFrom-Json -OutVariable gl
 
 $resultExportPath = $globalConfig.ResultExportPath
 $sqlChecksTestPath = $globalConfig.SQLChecksTestPath
+$sqlChecksAppend = $globalConfig.SQLChecksAppend
 
 foreach($instance in Get-ChildItem -Path './Environments' -Directory)
 {
@@ -42,13 +43,12 @@ foreach($instance in Get-ChildItem -Path './Environments' -Directory)
             $data | ConvertFrom-Json -OutVariable sqlCheckConfig | Out-Null
 
             $instance = $sqlCheckConfig.ServerInstance
-            $sqlCheckEnvironment = $environment + "-" + $instance
-            $exportPath = $resultExportPath + "\\SQLChecks\\$environment"
+            $sqlCheckEnvironment = $environment + $sqlChecksAppend
             
             foreach($check in $sqlCheckConfig | Get-Member -Type NoteProperty | Where-Object { $_.Name -ne "ServerInstance"} | Select-Object -ExpandProperty Name)
             {
                 Write-Host "[SQLCHECKS] Running $check on $environment - $instance"
-                Invoke-Pester -Script @{Path=$sqlChecksTestPath;Parameters= @{configs=$sqlChecksConfig}} -Tag $check -PassThru | Update-DbcPowerBiDataSource -Environment $sqlCheckEnvironment -Path $exportPath
+                Invoke-Pester -Script @{Path=$sqlChecksTestPath;Parameters= @{configs=$sqlChecksConfig}} -Tag $check -PassThru | Update-DbcPowerBiDataSource -Environment $sqlCheckEnvironment -Path $resultExportPath
             } 
         }        
     }
