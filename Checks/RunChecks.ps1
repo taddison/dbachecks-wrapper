@@ -42,7 +42,7 @@ foreach($instance in Get-ChildItem -Path './Environments' -Directory)
             $data | ConvertFrom-Json -OutVariable sqlCheckConfig | Out-Null
 
             $instance = $sqlCheckConfig.ServerInstance
-            $sqlCheckEnvironment = $environment + $sqlChecksAppend
+            $sqlCheckEnvironment = $environment + $sqlChecksAppend + '-' + $instance
             
             foreach($check in $sqlCheckConfig | Get-Member -Type NoteProperty | Where-Object { $_.Name -ne "ServerInstance"} | Select-Object -ExpandProperty Name)
             {

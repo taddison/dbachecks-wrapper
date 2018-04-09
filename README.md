@@ -16,13 +16,13 @@ The code to execute the checks and read config values is all contained in [RunAl
 
 ## Report update
 - The original dashboard can be downloaded from the [dbachecks repo](https://github.com/sqlcollaborative/dbachecks)
-- The Power BI dashboard query has been updated to replace .sqlchecks in the filename of all imported files - this works around the limitation that SQLChecks tests don't have a native concept of environment.  This change means the first 3 lines of the report query look like this:
+- The Power BI dashboard query has been updated to remove .sqlchecks and anything that follows in the filename of all imported files - this works around the limitation that SQLChecks tests don't have a native concept of environment.  This change means the first 3 lines of the report query look like this:
 
 ```
 let
     Source = Folder.Files(#"Path to Data"),
-    #"Replaced Value" = Table.ReplaceValue(Source,".sqlchecks","",Replacer.ReplaceText,{"Name"}),
-    #"Filtered For Json Files" = Table.SelectRows(#"Replaced Value", each Text.EndsWith([Name], ".json")),
+    #"Filtered For Json Files" = Table.SelectRows(Source, each Text.EndsWith([Name], ".json")),
+    #"Split Column by Delimiter" = Table.SplitColumn(#"Filtered For Json Files", "Name", Splitter.SplitTextByEachDelimiter({".sqlchecks"}, QuoteStyle.Csv, true), {"Name", "Name.Extension"}),
 ```
 
 ![Dashboard](/img/DashboardExample.png)
