@@ -5,14 +5,15 @@ The code to execute the checks and read config values is all contained in [RunAl
 
 ## Structure
 - A root folder to contain all global settings and invocation scripts
-  - Right now the global settings are the export path (for the json files used by the Power BI dashboard), and the path to SQLChecks
+  - Right now the global settings are the export path (for the json files used by the Power BI dashboard), and the slug to append to filenames for SQLChecks test output
 - A subfolder called Environments, with one folder per environment
 - Each environment folder contains a pair of config files, with details about the environment as well as the dbachecks config settings
 - An optional folder SQLChecks (per-environment), which contains any SQLChecks config files - one per-instance in the environment
 
 ## The Script
-- The script will execute all DBAChecks specified in the tests.config.json file for the environment
+- The script will execute all DBAChecks specified in the `tests.config.json` file for the environment
 - The script will also execute any SQLChecks tests found, only attempting to execute tests which are present in the configuration file
+- The script will output the results of each check (DBAChecks or SQLChecks) to the specified folder
 
 ## Report update
 - The original dashboard can be downloaded from the [dbachecks repo](https://github.com/sqlcollaborative/dbachecks)
