@@ -38,8 +38,7 @@ foreach($instance in Get-ChildItem -Path './Environments' -Directory)
         foreach($sqlChecksConfig in Get-ChildItem -Path $sqlChecksFolder -Filter "*.config.json")
         {
             $sqlChecksConfigPath = $sqlChecksConfig.FullName
-            [string]$data = Get-Content -Path $sqlChecksConfigPath -Raw
-            $data | ConvertFrom-Json -OutVariable sqlCheckConfig | Out-Null
+            $sqlCheckConfig = Read-SqlChecksConfig -Path $sqlChecksConfigPath
 
             $instance = $sqlCheckConfig.ServerInstance
             $sqlCheckEnvironment = $environment + $sqlChecksAppend + '-' + $instance
