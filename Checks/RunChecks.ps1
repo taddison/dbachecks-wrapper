@@ -26,7 +26,7 @@ foreach($instance in Get-ChildItem -Path './Environments' -Directory)
         {
             Write-Host "[DBACHECKS] Running $check on $environment"
             Invoke-DbcCheck -Check $check -PassThru | Update-DbcPowerBiDataSource -Environment $environment -Path $resultExportPath
-        }   
+        }
     }
 
     # SQLChecks
@@ -43,11 +43,11 @@ foreach($instance in Get-ChildItem -Path './Environments' -Directory)
             $instance = $sqlCheckConfig.ServerInstance
             $sqlCheckEnvironment = $environment + $sqlChecksAppend + '-' + $instance
             
-            foreach($check in $sqlCheckConfig | Get-Member -Type NoteProperty | Where-Object { $_.Name -ne "ServerInstance"} | Select-Object -ExpandProperty Name)
+            foreach($check in Get-SqlChecksFromConfig -Config $sqlCheckConfig)
             {
                 Write-Host "[SQLCHECKS] Running $check on $environment - $instance"
                 Invoke-SqlChecks -Config $sqlCheckConfig -Tag $check -PassThru | Update-DbcPowerBiDataSource -Environment $sqlCheckEnvironment -Path $resultExportPath
-            } 
-        }        
+            }
+        }
     }
 }
